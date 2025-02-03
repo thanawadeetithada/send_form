@@ -8,7 +8,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $service = $_POST['service'] ?? '';
     $appointment_time = $_POST['appointment_time'] ?? '';
 
-
     $appointment_date = isset($_POST['appointment_date']) ? DateTime::createFromFormat('d/m/Y', $_POST['appointment_date']) : false;
 
     if ($appointment_date) {
@@ -25,30 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($stmt->execute()) {
         echo "
-        <div class='modal fade' id='successModal' tabindex='-1' aria-labelledby='successModalLabel' aria-hidden='true'>
-          <div class='modal-dialog'>
-            <div class='modal-content'>
-              <div class='modal-header'>
-                <h5 class='modal-title' id='successModalLabel'>✅ บันทึกข้อมูลเรียบร้อย!</h5>
-                <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-              </div>
-              <div class='modal-body'>
-                ข้อมูลของคุณถูกบันทึกเรียบร้อยแล้ว
-              </div>
-              <div class='modal-footer'>
-                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>ปิด</button>
-                <a href='index.php' class='btn btn-primary'>ไปที่หน้าแรก</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <script>
-        // รอโหลดแล้วเปิด modal
-        window.onload = function() {
-            var myModal = new bootstrap.Modal(document.getElementById('successModal'));
-            myModal.show();
-        }
+            window.onload = function() {
+                var myModal = new bootstrap.Modal(document.getElementById('successModal'));
+                myModal.show();
+            }
         </script>";
     } else {
         echo "❌ เกิดข้อผิดพลาด: " . $stmt->error;
@@ -56,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->close();
     $conn->close();
-} 
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,76 +52,120 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 
     <style>
-        body {
-            background: linear-gradient(135deg, #74ebd5, #acb6e5);
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    body {
+        background: linear-gradient(135deg, #74ebd5, #acb6e5);
+        font-family: 'Arial', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
 
-        .card {
-            max-width: 500px;
-            width: 100%;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
-            background: white;
-            margin: 30px;
-        }
+    }
 
-        .form-control,
-        .form-select {
-            border-radius: 8px;
-            box-shadow: none;
-            border: 1px solid #ddd;
-            transition: 0.3s;
-        }
+    .btn-danger {
+        background: #ff6b6b;
+        border: none;
+        border-radius: 8px;
+        transition: 0.3s;
+        font-weight: bold;
+    }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #74ebd5;
-            box-shadow: 0px 0px 5px rgba(116, 235, 213, 0.5);
-        }
+    .btn-danger:hover {
+        background: #e55e5e;
+    }
 
-        .btn-primary {
-            background: #74ebd5;
-            border: none;
-            border-radius: 8px;
-            transition: 0.3s;
-            font-weight: bold;
-        }
+    .form-label::after {
+        content: " *";
+        color: red;
+        font-weight: bold;
+    }
 
-        .btn-primary:hover {
-            background: #5fc4b8;
-        }
+    .card {
+        max-width: 500px;
+        width: 100%;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+        background: white;
+        margin: 30px;
+        position: relative;
+    }
 
-        .btn-danger {
-            background: #ff6b6b;
-            border: none;
-            border-radius: 8px;
-            transition: 0.3s;
-            font-weight: bold;
-        }
+    .card::before {
+        content: "🦷";
+        font-size: 5rem;
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0.2;
+    }
 
-        .btn-danger:hover {
-            background: #e55e5e;
-        }
+    .form-control,
+    .form-select {
+        border-radius: 8px;
+        box-shadow: none;
+        border: 1px solid #ddd;
+        transition: 0.3s;
+    }
 
-        .form-label::after {
-            content: " *";
-            color: red;
-            font-weight: bold;
-        }
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #74ebd5;
+        box-shadow: 0px 0px 5px rgba(116, 235, 213, 0.5);
+    }
+
+    .btn-primary {
+        background: #74ebd5;
+        border: none;
+        border-radius: 8px;
+        transition: 0.3s;
+        font-weight: bold;
+        width: 40%;
+    }
+
+    .btn-primary:hover {
+        background: #5fc4b8;
+    }
+
+    .btn-danger {
+        background: #ff6b6b;
+        border: none;
+        border-radius: 8px;
+        transition: 0.3s;
+        font-weight: bold;
+        width: 40%;
+    }
+
+    .btn-danger:hover {
+        background: #e55e5e;
+    }
+
+    .form-label::after {
+        content: " *";
+        color: red;
+        font-weight: bold;
+    }
+
+    .modal-dialog {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+
+    }
+
+    #errorModal {
+        padding: 30px;
+    }
     </style>
 </head>
 
 <body>
     <div class="card">
         <h3 class="text-center mb-4">📝 นัดหมายบริการ</h3>
-        <form action="submit.php" method="POST">
+        <form id="appointmentForm">
             <div class="mb-3">
                 <label class="form-label">ชื่อ</label>
                 <input type="text" name="firstname" class="form-control" required>
@@ -155,12 +179,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="mb-3">
                 <label class="form-label">หมายเลขโทรศัพท์</label>
                 <input type="tel" name="phone" class="form-control" pattern="[0-9]{10}" required
-                    placeholder="กรอกหมายเลข 10 หลัก">
+                    placeholder="กรอกหมายเลข 10 หลัก" title="กรุณากรอกหมายเลขโทรศัพท์ 10 หลัก"
+                    oninput="validatePhone(this)">
+
             </div>
 
             <div class="mb-3">
                 <label class="form-label">บริการที่นัดหมาย</label>
-                <input type="text" name="service" class="form-control" required>
+                <select name="service" class="form-select" required>
+                    <option value="">เลือกช่วงเวลา</option>
+                    <option value="ตรวจฟัน">ตรวจฟัน</option>
+                    <option value="อุดฟัน">อุดฟัน</option>
+                    <option value="ถอนฟัน">ถอนฟัน</option>
+                    <option value="ขูดหินปูน">ขูดหินปูน</option>
+                    <option value="เคลือบหลุมร่องฟัน">เคลือบหลุมร่องฟัน</option>
+                    <option value="และบริการอื่นๆ">และบริการอื่นๆ</option>
+                </select>
             </div>
 
             <div class="mb-3">
@@ -180,39 +214,113 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="d-flex justify-content-between" style="margin: 0 40px;">
-                <button type="submit" class="btn btn-primary w-48">✅ ตกลง</button>
-                <button type="reset" class="btn btn-danger w-48">❌ ยกเลิก</button>
+                <button type="submit" class="btn btn-primary w-48">ตกลง</button>
+                <button type="reset" class="btn btn-danger w-48">ยกเลิก</button>
             </div>
         </form>
     </div>
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">✅ บันทึกข้อมูลเรียบร้อย!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ข้อมูลถูกบันทึกเรียบร้อยแล้ว
+                </div>
+                <div class="modal-footer">
+                    <a href="index.php" class="btn btn-primary">ปิด</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">❌ ข้อผิดพลาด</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    กรุณาใส่ข้อมูลใหม่
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 
     <script>
-    $(function() {
+    $(document).ready(function() {
+        function showModal(modalId, message) {
+            $(`#${modalId} .modal-body`).text(message);
+            $(`#${modalId}`).modal('show');
+        }
+        $("#appointmentForm").on("submit", function(e) {
+            e.preventDefault();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                url: "submit.php",
+                type: "POST",
+                data: formData,
+                dataType: "json",
+                success: function(response) {
+                    if (response.error) {
+                        showModal('errorModal', response.error);
+                    } else if (response.success) {
+                        showModal('successModal', "จองคิวเรียบร้อยแล้ว");
+                    }
+                },
+                error: function() {
+                    showModal('errorModal', "❌ เกิดข้อผิดพลาดในการส่งข้อมูล");
+                }
+            });
+        });
+
         $("#datepicker").datepicker({
             dateFormat: "dd/mm/yy",
             minDate: 0,
             onSelect: function(dateText) {
-                $.ajax({
-                    url: "check_availability.php",
-                    type: "POST",
-                    data: {
-                        appointment_date: dateText
-                    },
-                    dataType: "json",
-                    success: function(bookedTimes) {
-                        $("select[name='appointment_time'] option").each(function() {
-                            $(this).prop("disabled", false);
-                            if (bookedTimes.includes($(this).val())) {
-                                $(this).prop("disabled", true);
-                            }
-                        });
-                    }
-                });
+                checkAvailability(dateText);
             }
         });
+
+        function checkAvailability(dateText) {
+            $.ajax({
+                url: "check_availability.php",
+                type: "POST",
+                data: {
+                    appointment_date: dateText
+                },
+                dataType: "json",
+                success: function(bookedTimes) {
+                    $("select[name='appointment_time'] option").each(function() {
+                        const isBooked = bookedTimes.includes($(this).val());
+                        $(this).prop("disabled", isBooked);
+                    });
+                }
+            });
+        }
     });
+
+    function validatePhone(input) {
+        const value = input.value;
+        const phonePattern = /^[0-9]{10}$/;
+        if (!phonePattern.test(value)) {
+            input.setCustomValidity("กรุณากรอกหมายเลขโทรศัพท์ที่ถูกต้อง (10 หลัก)");
+        } else {
+            input.setCustomValidity("");
+        }
+    }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
