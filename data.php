@@ -87,9 +87,6 @@ $result = $conn->query($sql);
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th>ชื่อ</th>
-                        <th>นามสกุล</th>
-                        <th>หมายเลขโทรศัพท์</th>
                         <th>บริการที่นัดหมาย</th>
                         <th>วันที่นัดหมาย</th>
                         <th>เวลานัดหมาย</th>
@@ -99,19 +96,14 @@ $result = $conn->query($sql);
                 <tbody>
                     <?php while($row = $result->fetch_assoc()): ?>
                     <tr>
-                        <td><?php echo htmlspecialchars($row['firstname']); ?></td>
-                        <td><?php echo htmlspecialchars($row['lastname']); ?></td>
-                        <td><?php echo htmlspecialchars($row['phone']); ?></td>
                         <td><?php echo htmlspecialchars($row['service']); ?></td>
                         <td><?php echo date('d/m/Y', strtotime($row['appointment_date'])); ?></td>
                         <td><?php echo htmlspecialchars($row['appointment_time']); ?></td>
                         <td>
                             <a href="#" class="btn btn-danger btn-sm delete-btn" data-id="<?php echo $row['id']; ?>"
-                                data-firstname="<?php echo $row['firstname']; ?>"
-                                data-lastname="<?php echo $row['lastname']; ?>"
                                 data-service="<?php echo $row['service']; ?>"
                                 data-appointment_date="<?php echo date('d/m/Y', strtotime($row['appointment_date'])); ?>"
-                                data-appointment_time="<?php echo $row['appointment_time']; ?>">ลบ</a>
+                                data-appointment_time="<?php echo $row['appointment_time']; ?>">ยกเลิก</a>
                         </td>
                     </tr>
                     <?php endwhile; ?>
@@ -131,11 +123,10 @@ $result = $conn->query($sql);
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteModalLabel">❌ ต้องการลบข้อมูลใช่ไหม ?</h5>
+                    <h5 class="modal-title" id="deleteModalLabel">❌ ต้องการยกเลิกการจองคิวใช่ไหม ?</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p id="deleteFirstLast"></p>
                     <p id="deleteService"></p>
                     <p>
                         <span id="deleteDate"></span>

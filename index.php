@@ -193,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <option value="ถอนฟัน">ถอนฟัน</option>
                     <option value="ขูดหินปูน">ขูดหินปูน</option>
                     <option value="เคลือบหลุมร่องฟัน">เคลือบหลุมร่องฟัน</option>
-                    <option value="และบริการอื่นๆ">และบริการอื่นๆ</option>
+                    <option value="บริการอื่นๆ">บริการอื่นๆ</option>
                 </select>
             </div>
 
