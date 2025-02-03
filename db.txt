@@ -1,0 +1,13 @@
+USE appointments_db;
+
+CREATE TABLE appointments (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- รหัสการนัดหมาย (Unique ID)
+    firstname VARCHAR(255) NOT NULL, -- ชื่อ
+    lastname VARCHAR(255) NOT NULL, -- นามสกุล
+    phone VARCHAR(15) NOT NULL, -- หมายเลขโทรศัพท์
+    service VARCHAR(255) NOT NULL, -- บริการที่นัดหมาย
+    appointment_date DATE NOT NULL, -- วันที่นัดหมาย
+    appointment_time VARCHAR(50) NOT NULL, -- เวลานัดหมาย
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- เวลาที่เพิ่มข้อมูล
+    UNIQUE (appointment_date, appointment_time)  -- เพื่อไม่ให้มีการจองซ้ำในเวลาเดียวกัน
+);
